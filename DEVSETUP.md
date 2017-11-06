@@ -15,6 +15,46 @@ TODO
 
 ## Setup google application and add api key
 
+Google needs to monitor usage of it's api's. To do this applications that use them need to access using an Client ID. A webapp has all it's source code public as it is downloaded into the users browser to run. This means it is not possible for a webapp to have a client secret. Instead the apis are restricted to certain origin uri's. We need to add this to the client in google api console.
+
+Navigate to https://console.developers.google.com/apis
+
+Create a new project (I called mine ExampleQuasarFramework)
+
+Select credentials and fill in the Product name on the consent screen and save
+
+Select Credentials and create an oauth client id.
+
+For app type select web application.
+
+Enter a name (I choose ExampleQuasarFramework)
+
+Under authorized javascript origins add the following:
+````
+http://localhost:8080
+http://127.0.0.1:8080
+````
+
+(127.0.0.1 may not be nessecary but I added it anyway.)
+This will allow our client id to be used locally on our development machine.
+
+When you create the app you will be given a client ID and client secret. You do not need the client secret for now, but copy the client ID into your clipboard.
+
+Open the following file in your cloned repo:
+````
+/src/tenantSpecific.js
+````
+
+Set the google docs client id to the value you copied:
+````
+googleDocsClientID: 'XXX'
+````
+(In the above example you replace XXX with what you copied)
+
+Finally we need to allocate which google api's that can be run by your application. Go back to the google api console and in your project select dashboard. It should say 'No APIs or services are enabled'. We need to enable the google sheets api 
+
+Google sheets API. You can browse to select it and click enable.
+
 
 ## Run app on dev machine
 

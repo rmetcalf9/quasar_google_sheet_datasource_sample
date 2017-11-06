@@ -7,5 +7,5 @@ When getting future updates this file will not be overwritten.
 */
 
 export default {
-  googleDocsClientID: 'XXX'
+  googleDocsClientID: '492180740263-j0k8i59otmdmqd94uk5hmrjra7vvr5uh.apps.googleusercontent.com'
 }
