@@ -29,28 +29,12 @@
         <q-item-side icon="home" />
         <q-item-main label="Home" />
       </q-side-link>
-      <q-side-link item to="/sprints">
-        <q-item-side icon="directions_run" />
-        <q-item-main label="Sprints" />
-      </q-side-link>
-      <q-side-link item to="/progress">
-        <q-item-side icon="pie_chart" />
-        <q-item-main label="Progress" />
-      </q-side-link>
-      <q-side-link item to="/issues">
-        <q-item-side icon="list" />
-        <q-item-main label="Issues" />
-      </q-side-link>
       <hr>
       <q-side-link item to="/test">
         <q-item-side icon="group_work" />
         <q-item-main label="TEST2" />
       </q-side-link>
       <hr>
-      <q-side-link item to="/changeproject">
-        <q-item-side icon="find_replace" />
-        <q-item-main label="Change Project" />
-      </q-side-link>
       <q-side-link item to="/logout">
         <q-item-side icon="exit_to_app" />
         <q-item-main label="Logout" />

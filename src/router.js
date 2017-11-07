@@ -10,11 +10,11 @@ function load (component) {
 
 function requireAuth (to, from, next) {
   var x = false
-  // if (typeof (globalStore) !== 'undefined') {
-  //   if (typeof (globalStore.getters) !== 'undefined') {
-  //     x = globalStore.getters.is_logged_in
-  //   }
-  // }
+  if (typeof (globalStore) !== 'undefined') {
+    if (typeof (globalStore.getters) !== 'undefined') {
+      x = globalStore.getters.isLoggedIn
+    }
+  }
   // console.log('Check auth')
   // console.log(x)
   if (!x) {
@@ -49,6 +49,13 @@ export default new VueRouter({
   routes: [
     { path: '/', component: load('Index'), beforeEnter: requireAuth }, // Default
     { path: '/login', component: load('Login'), beforeEnter (to, from, next) { defaultBeforeNavFn(to, from, next, 'Login') } },
+    { path: '/logout',
+      beforeEnter (to, from, next) {
+        globalStore.commit('LOGOUT')
+        next('/login')
+      }
+    },
+
     { path: '*', component: load('Error404') } // Not found
   ]
 })

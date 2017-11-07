@@ -13,22 +13,19 @@ const mutations = {
     state.pageTitle = 'Example Quasar framework to demo using google doc as datasource - ' + link
   },
   LOGOUT (state) {
-    console.log('TODO LOGOUT')
+    googleDocs.dispatch('DEAUTHENTICATE')
   }
 }
 
 const getters = {
-  is_logged_in: (state, getters) => {
-    return false
-  },
-  tmp_data: (state, getters) => {
-    return googleDocs.getters.project
+  isLoggedIn: (state, getters) => {
+    return googleDocs.getters.isLoggedIn
   }
 }
 
 const actions = {
-  loginuser ({commit}, params) {
-    console.log('TODO Login user')
+  LOGIN ({commit}, callback) {
+    googleDocs.dispatch('AUTHENTICATE', callback)
   }
 }
 

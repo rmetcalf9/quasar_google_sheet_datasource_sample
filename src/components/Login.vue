@@ -40,9 +40,9 @@ import {
   QItemSide,
   QChipsInput,
   QRating,
-  QItemMain
-  // Toast,
-  // Loading
+  QItemMain,
+  Toast,
+  Loading
 } from 'quasar'
 import globalStore from './globalStore'
 export default {
@@ -78,34 +78,22 @@ export default {
   },
   methods: {
     login () {
-      console.log('TODO')
-      /*
       Loading.show()
-      var callback = {
-        OKcallback: {
-          method: function (retData, passback) {
-            Loading.hide()
-            // Toast.create('Success log in not defined')
-            passback.$router.replace(passback.$route.query.redirect || '/')
-          },
-          params: this
-        },
-        FAILcallback: {
-          method: function (retData, passback) {
-            Loading.hide()
-            Toast.create('Failed to log in "' + retData.msg + '"')
-            console.log(retData)
-          },
-          params: {}
+      var tt = this
+      globalStore.dispatch('LOGIN', function (result, message) {
+        if (result === 'Error') {
+          Loading.hide()
+          Toast.create('Login failed: ' + message)
         }
-      }
-      var params = {
-        username: this.username,
-        password: this.password,
-        callback: callback
-      }
-      globalStore.dispatch('loginuser', params)
-      */
+        else if (result === 'Success') {
+          Loading.hide()
+          tt.$router.replace(tt.$route.query.redirect || '/')
+        }
+        else {
+          Loading.hide()
+          Toast.create('Error: ' + message)
+        }
+      })
     }
   }
 }
