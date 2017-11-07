@@ -1,5 +1,7 @@
 # Quasar project to demo a webApp which uses a google doc as a data source
 
+This project is deployed to github pages and can be accessed here: https://rmetcalf9.github.io/quasar_google_sheet_datasource_sample/
+
 
 1. [How to setup development enviroment](DEVSETUP.md)
 2. [How to deploy to github pages](GITHUBDEPLOYMENT.md)

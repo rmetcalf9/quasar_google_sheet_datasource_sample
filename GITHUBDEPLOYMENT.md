@@ -8,6 +8,7 @@ Github includes a useful feature called github pages. This allows github to host
  - Scroll down to github pages
  - Select master branch /docs folder and press save
  - If you scroll down again after the save you will see a message "Your site is ready to be published at URL - keep a note of this URL.
+ - You should also edit README.md and change the link so it points to the correct github pages
 
 TODO - add url to google api
 
