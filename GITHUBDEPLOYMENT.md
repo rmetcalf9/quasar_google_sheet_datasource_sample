@@ -10,11 +10,13 @@ Github includes a useful feature called github pages. This allows github to host
  - If you scroll down again after the save you will see a message "Your site is ready to be published at URL - keep a note of this URL.
  - You should also edit README.md and change the link so it points to the correct github pages
 
-TODO - add url to google api
+Google API's restrict the origins the site can be loaded from to work. This is why you will start to get errors about 'X-Frame-Options' to overcome these:
+ - Log into XX
 
 ## Steps to update the site
 
  - Check the project is working without errors
+ - Commit and push latest changes to github
  - In a command prompt browse to the project folder
  - Run "deploy_to_gh_pages.bat" - this will build a copy of the 
  - Run commands to push your changes to git (git add --all, git commit -m"Updating pages", git push

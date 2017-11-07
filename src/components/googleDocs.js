@@ -57,40 +57,46 @@ function getUserInfo (commit, state, accessToken, callbackFN) {
 const actions = {
   AUTHENTICATE ({commit, state}, callbackFN) {
     clearState(commit)
-    window.gapi.auth.authorize(
-      {
-        'client_id': state.googleDocsClientID,
-        'scope': state.googleDocsScopes.join(' '),
-        'immediate': true
-      },
-      function (authResult) {
-        if (authResult && !authResult.error) {
-          // Hide auth UI, then load client library.
-          getUserInfo(commit, state, authResult.accessToken, callbackFN)
-        }
-        else {
-          // tried with immediate ture but failed - try again with immediate set to false
-          window.gapi.auth.authorize(
-            {
-              'client_id': state.googleDocsClientID,
-              'scope': state.googleDocsScopes.join(' '),
-              'immediate': false
-            },
-            function (authResult) {
-              if (authResult && !authResult.error) {
-                // Hide auth UI, then load client library.
-                getUserInfo(commit, state, authResult.accessToken, callbackFN)
+    try {
+      window.gapi.auth.authorize(
+        {
+          'client_id': state.googleDocsClientID,
+          'scope': state.googleDocsScopes.join(' '),
+          'immediate': true
+        },
+        function (authResult) {
+          if (authResult && !authResult.error) {
+            // Hide auth UI, then load client library.
+            getUserInfo(commit, state, authResult.accessToken, callbackFN)
+          }
+          else {
+            // tried with immediate ture but failed - try again with immediate set to false
+            window.gapi.auth.authorize(
+              {
+                'client_id': state.googleDocsClientID,
+                'scope': state.googleDocsScopes.join(' '),
+                'immediate': false
+              },
+              function (authResult) {
+                if (authResult && !authResult.error) {
+                  // Hide auth UI, then load client library.
+                  getUserInfo(commit, state, authResult.accessToken, callbackFN)
+                }
+                else {
+                  // tried with immediate set to both true and false and failed both times
+                  // clearState(commit) not required here - called at begining of process
+                  callbackFN('Error', 'Not authorized')
+                };
               }
-              else {
-                // tried with immediate set to both true and false and failed both times
-                // clearState(commit) not required here - called at begining of process
-                callbackFN('Error', 'Not authorized')
-              };
-            }
-          )
-        };
-      }
-    )
+            )
+          }
+        }
+      )
+    }
+    catch (err) {
+      console.log(err)
+      callbackFN('Error', 'Exception')
+    }
   },
   DEAUTHENTICATE ({commit, state}) {
     clearState(commit)
