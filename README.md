@@ -6,7 +6,13 @@
 
 
 
-## Useful quasar links
+## Useful Quasar Information
+Quasar is a framework that includes widgets for webapplications.
 
-TODO
+The showcase app is good for viewing the availiable widgets. The showcase source is a great way of finding out how to use the widgets.
+Showcase: http://quasar-framework.org/quasar-play/android/index.html#/showcase/ 
+Showcase source: https://github.com/quasarframework/quasar-play/tree/dev/src/components/showcase 
+
+Quasar uses material design icons. You can see what you can choose from here:
+Icons: https://material.io/icons/
 
