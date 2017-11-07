@@ -9,9 +9,26 @@ TODO
 TODO
 
 ## Install quasar
+TODO
 
 ## Fork and Clone repository
-TODO
+Make sure you are logged into github then navigate to https://github.com/rmetcalf9/quasar_google_sheet_datasource_sample
+At the top you should see a fork button. Press it. This will create a fork of the project which you have control of. The fork will be under your own github user area.
+
+In your working directory type the command
+````
+git clone X
+````
+where X is the location of your fork. It should be something like:
+git@github.com:GITHUBUSER/quasar_google_sheet_datasource_sample.git
+(Make sure GITHUBUSER is not rmetcalf9 - this is the main repo, you need to clone your fork which will be under your own username.)
+
+This will create a subdirectory named quasar_google_sheet_datasource_sample
+cd into this directory and run the command
+````
+npm install
+````
+This will download extra nodeJS dependancies into the directory.
 
 ## Setup google application and add api key
 
