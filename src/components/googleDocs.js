@@ -65,6 +65,7 @@ const actions = {
           'immediate': true
         },
         function (authResult) {
+          console.log(authResult)
           if (authResult && !authResult.error) {
             // Hide auth UI, then load client library.
             getUserInfo(commit, state, authResult.accessToken, callbackFN)
@@ -90,7 +91,7 @@ const actions = {
               }
             )
           }
-        }
+        } // function
       )
     }
     catch (err) {
