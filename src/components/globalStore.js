@@ -20,6 +20,9 @@ const mutations = {
 const getters = {
   isLoggedIn: (state, getters) => {
     return googleDocs.getters.isLoggedIn
+  },
+  loggedInUserInfo: (state, getters) => {
+    return googleDocs.getters.userInfo
   }
 }
 

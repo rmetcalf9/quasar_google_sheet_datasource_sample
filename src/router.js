@@ -47,7 +47,16 @@ export default new VueRouter({
    */
 
   routes: [
-    { path: '/', component: load('Index'), beforeEnter: requireAuth }, // Default
+    {
+      path: '/',
+      component: load('Index'),
+      beforeEnter: requireAuth,
+      children: [
+        { path: '/', redirect: '/home' },
+        { path: 'home', component: load('Home'), beforeEnter (to, from, next) { defaultBeforeNavFn(to, from, next, 'Home') } },
+        { path: 'test', component: load('Test'), beforeEnter (to, from, next) { defaultBeforeNavFn(to, from, next, 'Test') } }
+      ]
+    }, // Default
     { path: '/login', component: load('Login'), beforeEnter (to, from, next) { defaultBeforeNavFn(to, from, next, 'Login') } },
     { path: '/logout',
       beforeEnter (to, from, next) {

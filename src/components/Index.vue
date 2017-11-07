@@ -32,7 +32,7 @@
       <hr>
       <q-side-link item to="/test">
         <q-item-side icon="group_work" />
-        <q-item-main label="TEST2" />
+        <q-item-main label="Test" />
       </q-side-link>
       <hr>
       <q-side-link item to="/logout">
@@ -113,7 +113,6 @@ export default {
     }
   },
   created () {
-    console.log('TODO')
     /* Loading.show()
     var callback = {
       OKcallback: {
