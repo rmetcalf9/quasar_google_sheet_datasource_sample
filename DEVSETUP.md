@@ -1,9 +1,29 @@
 # Development enviroment setup instructions
 
-## Install GIT
-You need to install git onto your local machine, setup a ssh public private key pair and put the public key into github.
+## Setup an account with github
+Create an account at github.com and ensure you can log in with it.
 
-TODO
+## Install GIT and setup with Github.com
+You need to install git onto your local machine, setup a ssh public private key pair and put the public key into github. These instructions work for windows:
+
+ - Download the Git for Windows installer - https://git-for-windows.github.io/
+ - Follow the wizard. - Make sure you select "Run Git and included Unix tools from the Windows Command Prompt" when prompted
+ - Start a command prompt and run the following commands, replacing "My Name" with your name and "myemail@server.com" with your email address
+````
+git config --global user.name "My Name"
+git config --global user.email "myemail@server.com"
+````
+ - You need to use SSH keys to identify yourself to services like create yourself public and private keypair. Launch "Git Bash" and run this command to create these keys:
+````
+ssh-keygen -t rsa -b 4096 -f ~/.ssh/id_rsa
+````
+This process will create two files. id_rsa and id_rsa.pub. id_rsa is your private key and you must never share this with anyone. id_rsa.pub is your public key. You will need to give this to github so it can identify you. In the gitbash window type the following.
+````
+notepad ~/.ssh/id_rsa.pub
+````
+
+TODO Put key into github
+
 
 ## Install nodeJS
 TODO
