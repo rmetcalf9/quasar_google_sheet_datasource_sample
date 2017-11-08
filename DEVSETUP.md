@@ -30,10 +30,19 @@ In the key section paster the contents of id_rsa.pub. (This should be open in no
 
 
 ## Install nodeJS
-TODO
+NodeJS is a javascript server framework. It allows us to develop the webapplication on our local machine and have our local machine act as the web server. It also comes with node package manager which is a tool that will find and download software libraries and frameworks.
 
-## Install quasar
-TODO
+Navigate to https://nodejs.org/en/download/ and download and install nodeJS. (The windows installer is probally the one you want.)
+
+TODO install notes and ensuring npm is installed
+
+## Install Quasar
+Quasar is a webapp framework which delivers user interface widgets and a build process. It is very good for modern webapps which can be run on mobile, tablet and desktop platforms.
+
+Once nodeJS and npm is installed installing quasar is very easy, just type the following command
+````
+npm install -g quasar-cli
+````
 
 ## Fork and Clone repository
 Make sure you are logged into github then navigate to https://github.com/rmetcalf9/quasar_google_sheet_datasource_sample
