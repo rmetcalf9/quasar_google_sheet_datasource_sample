@@ -11,7 +11,12 @@ Github includes a useful feature called github pages. This allows github to host
  - You should also edit README.md and change the link so it points to the correct github pages
 
 Google API's restrict the origins the site can be loaded from to work. This is why you will start to get errors about 'X-Frame-Options' to overcome these:
- - Log into XX
+ - Log into https://console.developers.google.com/apis
+ - Navigate to the project created for this app
+ - Click credentials and then click the edit pencil next to the client ID that this app is using
+ - Under https://console.developers.google.com/apis add the host used by github pages. It should be something like https://GITHUBUSER.github.io where GITHUBUSER is your github username
+ - Press Save
+ - Test the app by going to the github pages url and checking the google login and queries work
 
 ## Steps to update the site
 
