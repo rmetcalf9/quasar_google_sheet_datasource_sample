@@ -65,7 +65,7 @@ const actions = {
           'immediate': true
         },
         function (authResult) {
-          console.log(authResult)
+          // console.log(authResult)
           if (authResult && !authResult.error) {
             // Hide auth UI, then load client library.
             getUserInfo(commit, state, authResult.accessToken, callbackFN)
@@ -101,7 +101,14 @@ const actions = {
   },
   DEAUTHENTICATE ({commit, state}) {
     clearState(commit)
+  },
+  GetSheetAccessLevel ({commit, state}, {sheetID, callbackFN}) {
+    callbackFN('Error', 'GetSheetAccessLevel - Not implemented')
+  },
+  GetDataRangesFromSheet ({commit, state}, {sheetID, callbackFN, ranges}) {
+    callbackFN('Error', 'GetDataRangesFromSheet - Not implemented')
   }
+
 }
 
 Vue.use(Vuex)

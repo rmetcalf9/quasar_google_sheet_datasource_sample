@@ -66,9 +66,9 @@ import {
   QItemMain,
   QSideLink,
   QListHeader,
-  QScrollArea
-  // Loading,
-  // Toast
+  QScrollArea,
+  Loading,
+  Toast
 } from 'quasar'
 import globalStore from './globalStore'
 export default {
@@ -113,24 +113,20 @@ export default {
     }
   },
   created () {
-    /* Loading.show()
-    var callback = {
-      OKcallback: {
-        method: function (retData, passback) {
-          Loading.hide()
-        },
-        params: {}
-      },
-      FAILcallback: {
-        method: function (retData, passback) {
-          Loading.hide()
-          Toast.create('Failed to log in "' + retData.msg + '"')
-        },
-        params: {}
+    Loading.show()
+    globalStore.dispatch('LOADAPPDATA', function (result, message) {
+      if (result === 'Error') {
+        Loading.hide()
+        Toast.create('Failed: ' + message)
       }
-    }
-    mainJIRADataStore.dispatch('loadJIRAdata', {callback: callback})
-    */
+      else if (result === 'Success') {
+        Loading.hide()
+      }
+      else {
+        Loading.hide()
+        Toast.create('Error: ' + message)
+      }
+    })
   },
   methods: {
     refresh () {
