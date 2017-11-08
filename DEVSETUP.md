@@ -22,7 +22,11 @@ This process will create two files. id_rsa and id_rsa.pub. id_rsa is your privat
 notepad ~/.ssh/id_rsa.pub
 ````
 
-TODO Put key into github
+Browse to github.com and login. Click on your profile photo and select settings.
+Select ssh and GPB keys
+Press new ssh key
+For the title enter text that identifies your machine. e.g. 'Work Laptop' etc.
+In the key section paster the contents of id_rsa.pub. (This should be open in notepad based on previous command.) Careful you paste the id_rsa.pub file not the id_rsa file. Only the public key should be given to github.
 
 
 ## Install nodeJS
