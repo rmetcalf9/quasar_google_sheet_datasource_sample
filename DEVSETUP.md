@@ -34,7 +34,7 @@ NodeJS is a javascript server framework. It allows us to develop the webapplicat
 
 Navigate to https://nodejs.org/en/download/ and download and install nodeJS. (The windows installer is probally the one you want.)
 
-TODO install notes and ensuring npm is installed
+Following default install options worked when I tested this
 
 ## Install Quasar
 Quasar is a webapp framework which delivers user interface widgets and a build process. It is very good for modern webapps which can be run on mobile, tablet and desktop platforms.
