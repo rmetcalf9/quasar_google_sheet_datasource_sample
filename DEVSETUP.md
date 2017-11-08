@@ -60,6 +60,7 @@ This will create a subdirectory named quasar_google_sheet_datasource_sample
 cd into this directory and run the command
 ````
 npm install
+npm install quasar-extras
 ````
 This will download extra nodeJS dependancies into the directory.
 
