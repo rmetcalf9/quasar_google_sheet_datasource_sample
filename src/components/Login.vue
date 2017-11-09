@@ -15,7 +15,7 @@
 			<div class="text-center" style="width: 500px; max-width: 90vw;">
 				<br>
 				<form onClick="return false;">
-					<q-btn color="primary" @click="login" small>Login with Google</q-btn>
+					<q-btn color="primary" @click="login" small>{{ loginButtonMessage }}</q-btn>
 				</form>
 			</div>
 		</div>
@@ -68,7 +68,8 @@ export default {
   data () {
     return {
       username: '',
-      password: ''
+      password: '',
+      loginButtonMessage: 'Login with google'
     }
   },
   computed: {
@@ -78,15 +79,15 @@ export default {
   },
   methods: {
     login () {
-      Loading.show()
       var tt = this
+      tt.loginButtonMessage = 'Login with google in progress...'
       globalStore.dispatch('LOGIN', function (result, message) {
         if (result === 'Error') {
-          Loading.hide()
+          tt.loginButtonMessage = 'Login with google'
           Toast.create('Login failed: ' + message)
         }
         else if (result === 'Success') {
-          Loading.hide()
+          tt.loginButtonMessage = 'Login with google'
           tt.$router.replace(tt.$route.query.redirect || '/')
         }
         else {
