@@ -4,9 +4,12 @@ import Vuex from 'vuex'
 
 import googleDocs from './googleDocs.js'
 
+var loadStateStrings = ['CREATED', 'LOADING', 'LOADED', 'ERROR']
+
 const state = {
   pageTitle: 'Default Page Title',
   dataLoadState: 0, // 0 = CREATED, 1 = LOADING, 2 = LOADED, 3 = ERROR
+  lastErrorMessage: '',
   loadedGoogleSheet: {
     id: '10mv_ebHQbq2KIhHuH1HY-kNjWuL5OQ6ls-TX865MjIg',
     accessLevel: 'NONE'
@@ -19,6 +22,16 @@ const mutations = {
   },
   LOGOUT (state) {
     googleDocs.dispatch('DEAUTHENTICATE')
+  },
+  SET_STATE_LOADING (state) {
+    state.dataLoadState = 1
+  },
+  SET_STATE_LOADED (state) {
+    state.dataLoadState = 2
+  },
+  SET_STATE_ERROR (state, msg) {
+    state.lastErrorMessage = msg
+    state.dataLoadState = 3
   }
 }
 
@@ -30,7 +43,11 @@ const getters = {
     return googleDocs.getters.userInfo
   },
   dataLoadState: (state, getters) => {
-    return state.dataLoadState
+    return loadStateStrings[state.dataLoadState]
+  },
+  dataLoadStateWithErrorMessage: (state, getters) => {
+    if (state.dataLoadState === 3) return loadStateStrings[state.dataLoadState] + ' ' + state.lastErrorMessage
+    return loadStateStrings[state.dataLoadState]
   },
   loadedGoogleSheet: (state, getters) => {
     return state.loadedGoogleSheet
@@ -42,14 +59,20 @@ const actions = {
     googleDocs.dispatch('AUTHENTICATE', callbackFN)
   },
   LOADAPPDATA ({commit, state}, callbackFN) {
-    googleDocs.dispatch('GetSheetAccessLevel', {sheetID: state.loadedGoogleSheet.id, callbackFN: callbackFN}, function (result, message) {
-      if (result === 'Success') {
-        console.log('TODO Success')
-        console.log(result)
-        callbackFN(result, message)
-      }
-      else {
-        callbackFN(result, message)
+    commit('SET_STATE_LOADING') // set load state to LOADING
+    googleDocs.dispatch('GetSheetAccessLevel', {
+      sheetID: state.loadedGoogleSheet.id,
+      callbackFN: function (result, message) {
+        if (result === 'Success') {
+          console.log('TODO Success')
+          console.log(result)
+          commit('SET_STATE_LOADED') // set load state to LOADED
+          callbackFN(result, message)
+        }
+        else {
+          commit('SET_STATE_ERROR', message) // set load state to ERROR
+          callbackFN(result, message)
+        }
       }
     })
   }

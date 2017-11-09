@@ -32,7 +32,7 @@ export default {
   },
   computed: {
     dataLoadState () {
-      return globalStore.getters.dataLoadState
+      return globalStore.getters.dataLoadStateWithErrorMessage
     },
     loadedGoogleSheet () {
       return globalStore.getters.loadedGoogleSheet
