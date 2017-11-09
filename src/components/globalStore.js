@@ -6,13 +6,18 @@ import googleDocs from './googleDocs.js'
 
 var loadStateStrings = ['CREATED', 'LOADING', 'LOADED', 'ERROR']
 
+var hardCodedTestGoogleSheetIDs = {
+  Roberts_Test: '1yl2hajxymROm0E7sNot6N20_vRE0WwhJqlTaJvwE0OU',
+  ABP_Tutoring_RESPONSES2: '10mv_ebHQbq2KIhHuH1HY-kNjWuL5OQ6ls-TX865MjIg'
+}
+
 const state = {
   pageTitle: 'Default Page Title',
   dataLoadState: 0, // 0 = CREATED, 1 = LOADING, 2 = LOADED, 3 = ERROR
   lastErrorMessage: '',
   loadedGoogleSheet: {
-    id: '10mv_ebHQbq2KIhHuH1HY-kNjWuL5OQ6ls-TX865MjIg',
-    accessLevel: 'NONE'
+    id: hardCodedTestGoogleSheetIDs.Roberts_Test,
+    accessLevel: 'UNKNOWN'
   }
 }
 
@@ -32,6 +37,10 @@ const mutations = {
   SET_STATE_ERROR (state, msg) {
     state.lastErrorMessage = msg
     state.dataLoadState = 3
+  },
+  SET_SHEET_ACCESSLEVEL (state, level) {
+    console.log('Set sheet access level ' + level)
+    state.loadedGoogleSheet.accessLevel = level
   }
 }
 
@@ -64,10 +73,9 @@ const actions = {
       sheetID: state.loadedGoogleSheet.id,
       callbackFN: function (result, message) {
         if (result === 'Success') {
-          console.log('TODO Success')
-          console.log(result)
+          commit('SET_SHEET_ACCESSLEVEL', message.level) // set load state to LOADED
           commit('SET_STATE_LOADED') // set load state to LOADED
-          callbackFN(result, message)
+          callbackFN(result, 'Dataload complete')
         }
         else {
           commit('SET_STATE_ERROR', message) // set load state to ERROR
