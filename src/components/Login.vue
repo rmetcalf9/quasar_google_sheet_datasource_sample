@@ -16,6 +16,7 @@
 				<br>
 				<form onClick="return false;">
 					<q-btn color="primary" @click="login" small>{{ loginButtonMessage }}</q-btn>
+					<br>{{ loginMessage }}
 				</form>
 			</div>
 		</div>
@@ -69,7 +70,8 @@ export default {
     return {
       username: '',
       password: '',
-      loginButtonMessage: 'Login with google'
+      loginButtonMessage: 'Login with google',
+      loginMessage: ''
     }
   },
   computed: {
@@ -81,6 +83,7 @@ export default {
     login () {
       var tt = this
       tt.loginButtonMessage = 'Login with google in progress...'
+      tt.loginMessage = 'If nothing happens for a long time - try checking for popup blockers'
       globalStore.dispatch('LOGIN', function (result, message) {
         if (result === 'Error') {
           tt.loginButtonMessage = 'Login with google'
