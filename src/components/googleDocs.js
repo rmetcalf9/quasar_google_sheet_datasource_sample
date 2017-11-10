@@ -134,37 +134,28 @@ const actions = {
     window.gapi.client.sheets.spreadsheets.get({
       spreadsheetId: sheetID,
       includeGridData: false,
-      ranges: 'A1',
       fields: 'sheets'
     }).then(function (response) {
       if (response.status !== 200) {
         callbackFN('Success', {level: 'NONE'})
         return
       }
+      // The only way we can tell if we have write access is to try and do something
+      // test and see if we can create a sheet
       // We have determined we can read the sheet, now find if we can write to it
       // Start by creating a unique name for the sheet to test with
       var tmpSheetName = generateNameForTemporarySheet(response.result.sheets)
-      var googleAPIBatchRequestToCreateWorkSheet = [
-        {
-          'addSheet': {
-            'properties': {
-              'title': tmpSheetName,
-              'gridProperties': {
-                'rowCount': 20,
-                'columnCount': 12
-              },
-              'tabColor': {
-                'red': 1.0,
-                'green': 0.3,
-                'blue': 0.4
-              }
-            }
+      var batchRequests = []
+      batchRequests.push({
+        'addSheet': {
+          'properties': {
+            'title': tmpSheetName
           }
         }
-      ]
+      })
       window.gapi.client.sheets.spreadsheets.batchUpdate({
         spreadsheetId: sheetID,
-        resource: googleAPIBatchRequestToCreateWorkSheet
+        resource: {'requests': batchRequests}
       }).then(function (response) {
         if (response.status !== 200) {
           callbackFN('Error', response.status)
@@ -174,6 +165,10 @@ const actions = {
         console.log(tmpSheetName)
         callbackFN('Error', 'GetSheetAccessLevel - Not implemented delete what we created (' + tmpSheetName + ')')
       }, function (exception) {
+        if (exception.status === 403) {
+          callbackFN('Success', {level: 'READONLY'})
+          return
+        }
         console.log('GetSheetAccessLevel - Trying to create sheet')
         console.log(exception)
         callbackFN('Error', 'Unknown API exception ' + exception.result.error.message)
