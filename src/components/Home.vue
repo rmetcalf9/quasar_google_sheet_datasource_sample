@@ -17,6 +17,14 @@
           <td data-th="Field" class="text-left">Loaded sheet access level</td>
           <td data-th="Value" class="text-left">{{ loadedGoogleSheet.accessLevel }}</td>
         </tr>
+        <tr>
+          <td data-th="Field" class="text-left">Sheets in this googledoc</td>
+          <td data-th="Value" class="text-left">
+            <div v-for="sheet in loadedGoogleSheet.sheets" :key="sheet.properties.sheetId">
+              {{ sheet.properties.title }}<br/>
+            </div>
+          </td>
+        </tr>
       </tbody>
     </table>
   </div>
