@@ -161,9 +161,32 @@ const actions = {
           callbackFN('Error', response.status)
           return
         }
-        // TODO Create sheet
-        console.log(tmpSheetName)
-        callbackFN('Error', 'GetSheetAccessLevel - Not implemented delete what we created (' + tmpSheetName + ')')
+        var sheetIDThatWeJustCreated = response.result.replies[0].addSheet.properties.sheetId
+        // We have sucessfully created a sheet proving we can edit the document
+        // now lets clean up after ourselves
+        batchRequests = []
+        batchRequests.push({
+          'deleteSheet': {
+            'sheetId': sheetIDThatWeJustCreated
+          }
+        })
+        // call to delete sheet
+        window.gapi.client.sheets.spreadsheets.batchUpdate({
+          spreadsheetId: sheetID,
+          resource: {'requests': batchRequests}
+        }).then(function (response) {
+          if (response.status !== 200) {
+            console.log('GetSheetAccessLevel - created a sheet but failed to delete it - ' + tmpSheetName)
+            console.log(response)
+            callbackFN('Error', 'Unknown API response ' + response.result.error.message)
+            return
+          }
+          callbackFN('Success', {level: 'READWRITE'})
+        }, function (exception) {
+          console.log('GetSheetAccessLevel - created a sheet but failed to delete it - ' + tmpSheetName)
+          console.log(exception)
+          callbackFN('Error', 'Unknown API exception ' + exception.result.error.message)
+        })
       }, function (exception) {
         if (exception.status === 403) {
           callbackFN('Success', {level: 'READONLY'})

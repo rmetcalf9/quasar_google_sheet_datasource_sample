@@ -9,7 +9,7 @@ var loadStateStrings = ['CREATED', 'LOADING', 'LOADED', 'ERROR']
 var hardCodedTestGoogleSheetIDs = {
   Roberts_Test: '1yl2hajxymROm0E7sNot6N20_vRE0WwhJqlTaJvwE0OU',
   ABP_Tutoring_RESPONSES2: '10mv_ebHQbq2KIhHuH1HY-kNjWuL5OQ6ls-TX865MjIg',
-  TEST_READONLY_SHEET: '1B8iTvriTfCbvUIe0mvc7dbNInYanaQn_00LvWHVZn8E'
+  TEST_READONLY_SHEET: '1B8iTvriTfCbvUIe0mvc7dbNInYanaQn_00LvWHVZn8E' // Runscope - Batch Trigger Variable Sets
 }
 
 const state = {
@@ -17,7 +17,7 @@ const state = {
   dataLoadState: 0, // 0 = CREATED, 1 = LOADING, 2 = LOADED, 3 = ERROR
   lastErrorMessage: '',
   loadedGoogleSheet: {
-    id: hardCodedTestGoogleSheetIDs.TEST_READONLY_SHEET,
+    id: hardCodedTestGoogleSheetIDs.Roberts_Test,
     accessLevel: 'UNKNOWN'
   }
 }
