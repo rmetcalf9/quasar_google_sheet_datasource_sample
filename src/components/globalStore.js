@@ -18,7 +18,8 @@ const state = {
   lastErrorMessage: '',
   loadedGoogleSheet: {
     id: hardCodedTestGoogleSheetIDs.Roberts_Test,
-    accessLevel: 'UNKNOWN'
+    accessLevel: 'UNKNOWN',
+    sheets: []
   }
 }
 
@@ -40,8 +41,10 @@ const mutations = {
     state.dataLoadState = 3
   },
   SET_SHEET_ACCESSLEVEL (state, level) {
-    console.log('Set sheet access level ' + level)
     state.loadedGoogleSheet.accessLevel = level
+  },
+  SET_SHEETS (state, sheets) {
+    state.loadedGoogleSheet.sheets = sheets
   }
 }
 
@@ -75,6 +78,7 @@ const actions = {
       callbackFN: function (result, message) {
         if (result === 'Success') {
           commit('SET_SHEET_ACCESSLEVEL', message.level) // set load state to LOADED
+          commit('SET_SHEETS', message.sheets)
           commit('SET_STATE_LOADED') // set load state to LOADED
           callbackFN(result, 'Dataload complete')
         }

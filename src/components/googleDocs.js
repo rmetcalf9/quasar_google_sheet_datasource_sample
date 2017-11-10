@@ -144,7 +144,8 @@ const actions = {
       // test and see if we can create a sheet
       // We have determined we can read the sheet, now find if we can write to it
       // Start by creating a unique name for the sheet to test with
-      var tmpSheetName = generateNameForTemporarySheet(response.result.sheets)
+      var worksheetsInThisDocument = response.result.sheets
+      var tmpSheetName = generateNameForTemporarySheet(worksheetsInThisDocument)
       var batchRequests = []
       batchRequests.push({
         'addSheet': {
@@ -181,7 +182,7 @@ const actions = {
             callbackFN('Error', 'Unknown API response ' + response.result.error.message)
             return
           }
-          callbackFN('Success', {level: 'READWRITE'})
+          callbackFN('Success', {level: 'READWRITE', sheets: worksheetsInThisDocument})
         }, function (exception) {
           console.log('GetSheetAccessLevel - created a sheet but failed to delete it - ' + tmpSheetName)
           console.log(exception)
@@ -189,7 +190,7 @@ const actions = {
         })
       }, function (exception) {
         if (exception.status === 403) {
-          callbackFN('Success', {level: 'READONLY'})
+          callbackFN('Success', {level: 'READONLY', sheets: worksheetsInThisDocument})
           return
         }
         console.log('GetSheetAccessLevel - Trying to create sheet')
@@ -199,7 +200,7 @@ const actions = {
     }, function (exception) {
       console.log('GetSheetAccessLevel - No access exception encountered')
       console.log(exception)
-      callbackFN('Success', {level: 'NONE'})
+      callbackFN('Success', {level: 'NONE', sheets: []})
     })
   },
   GetDataRangesFromSheet ({commit, state}, {sheetID, callbackFN, ranges}) {
