@@ -25,6 +25,18 @@
             </div>
           </td>
         </tr>
+        <tr v-if="0 !== loadedGoogleSheet.sheets.length">
+          <td data-th="Field" class="text-left">Data from first sheet</td>
+          <td data-th="Value" class="text-left">
+            <div v-for="rowDataC in loadedGoogleSheet.sheets[0].data[0].rowData">
+              <div v-for="colData in rowDataC.values">
+                <div v-if="typeof(colData.userEnteredValue) !== 'undefined'">
+                  {{ colData.userEnteredValue.stringValue }}
+                </div>
+              </div>
+            <br/></div>
+          </td>
+        </tr>
       </tbody>
     </table>
   </div>
@@ -32,6 +44,9 @@
 
 <script>
 import globalStore from './globalStore'
+
+// function getElementIndex
+
 export default {
   data () {
     return {
