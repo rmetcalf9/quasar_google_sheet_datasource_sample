@@ -130,26 +130,20 @@ export default {
   },
   methods: {
     refresh () {
-      console.log('TODO')
-      /*
       Loading.show()
-      var callback = {
-        OKcallback: {
-          method: function (retData, passback) {
-            Loading.hide()
-          },
-          params: {}
-        },
-        FAILcallback: {
-          method: function (retData, passback) {
-            Loading.hide()
-            Toast.create('Failed to get data "' + retData.msg + '"')
-          },
-          params: {}
+      globalStore.dispatch('LOADAPPDATA', function (result, message) {
+        if (result === 'Error') {
+          Loading.hide()
+          Toast.create('Failed: ' + message)
         }
-      }
-      mainJIRADataStore.dispatch('loadJIRAdata', {callback: callback})
-      */
+        else if (result === 'Success') {
+          Loading.hide()
+        }
+        else {
+          Loading.hide()
+          Toast.create('Error: ' + message)
+        }
+      })
     }
   }
 }
